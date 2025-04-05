@@ -1,3 +1,3 @@
-URL_TO_SCRAPE = "https://web.lmarena.ai/leaderboard"
-
-INSTRUCTION_TO_LLM = "Extract all rows from the main table as objects with 'Model', 'rank', 'Organization', 'arena score', from the content."
+URL_TO_SCRAPE = "https://www.zonaprop.com.ar/departamentos-alquiler-la-plata-la-plata-pagina-"
+CSS_SELECTOR = "[class='postingsList-module__card-container']", "[class='paging-module__container-paging']"
+INSTRUCTION_TO_LLM = "Extrae los siguientes datos  'precio del alquiler', 'expensas' ,'direccion', 'ubicacion', 'metros cuadrados', 'descripcion', 'cantidad de ambientes', 'cantidad de banos', 'cantidad de dormitorios' de los siguientes datos que consegui de una pagina web. Devuelve el resultado en formato JSON. Si no existe alguno de los datos, devuelve null."
