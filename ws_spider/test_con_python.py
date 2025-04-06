@@ -9,8 +9,20 @@ def crawler_func_li_next(spider, response):
     if next_page:
         yield response.follow(next_page, callback=spider.parse)
 
-archivo_salida = "data/example.json"
-#CLOSESPIDER_PAGECOUNT = 3
+        
+def crawler_func_data_qa_PAGING_NEXT(spider, response):
+    next_page = response.css('a.paging-module__page-arrow[data-qa="PAGING_NEXT"]::attr(href)').get()
+    if next_page:
+        yield response.follow(next_page, callback=spider.parse)
+
+        
+def crawler_func_a_contains_NEXT(spider, response):
+    next_page = response.xpath('//a[contains(text(), "Next")]/@href').get()
+    if next_page:
+        yield response.follow(next_page, callback=spider.parse)
+
+archivo_salida = "data/huggingface_models.json"
+CLOSESPIDER_PAGECOUNT = 3
 #CLOSESPIDER_ITEMCOUNT = 50,
 
 process = CrawlerProcess(settings={
@@ -21,6 +33,6 @@ process = CrawlerProcess(settings={
     # "CLOSESPIDER_ITEMCOUNT": CLOSESPIDER_ITEMCOUNT,
 })
 
-urls = "https://quotes.toscrape.com/page/1/"
-process.crawl(ExampleSpider, start_urls=urls, crawler_func=crawler_func_li_next)
+urls = "https://huggingface.co/models"
+process.crawl(ExampleSpider, start_urls=urls, crawler_func=crawler_func_a_contains_NEXT)
 process.start()

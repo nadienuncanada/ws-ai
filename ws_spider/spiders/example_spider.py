@@ -13,14 +13,13 @@ class ExampleSpider(scrapy.Spider):
 
         self.crawler_func = crawler_func
 
-
     def parse(self, response):
-        for quote in response.css('div.quote'):
+        articles = response.xpath('/html/body/div/main/div/div/section[2]/div[2]/div/article')
+        for article in articles:
             yield {
-                'text': quote.css('span.text::text').get(),
-                'author': quote.css('small.author::text').get(),
+                'nombre': article.xpath('.//header/h4/text()').get(),
+                'tipo': article.xpath('.//div/text()[1]').get()
             }
-        
         
         if self.crawler_func:
             for result in self.crawler_func(self, response):
