@@ -2,6 +2,7 @@ import os
 import scrapy
 import asyncio
 import nest_asyncio
+import json
 from pydantic import BaseModel, Field
 from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, LLMConfig, BrowserConfig, CacheMode
 from crawl4ai.extraction_strategy import LLMExtractionStrategy
@@ -93,5 +94,6 @@ class Craw4iaSpider(scrapy.Spider):
                 url=url, config=crawler_config
             )
             #return [{"extracted_content": result.extracted_content, "cleaned_text": result.cleaned_text}]
-            return [{"extracted_content": result.extracted_content}]
+            # return [{"extracted_content": result.extracted_content}]
+            return json.loads(result.extracted_content)
             
